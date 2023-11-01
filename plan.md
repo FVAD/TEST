@@ -7,9 +7,12 @@
 
 ### Http报文格式： 请求报文/响应报文
 ### 请求报文
-#### 请求行
+#### 请求行整体
 ##### 请求方法 + space + 请求URL + HTTP协议及其版本
 ##### Eg `POST /xxx/xxxx/xxxxx.html HTTP/1.1`
-#### 请求头
-##### 主要是GET 或者 POST ，还有一些如`DELETE,HEAD,OPTIONS,PUT,TRACE`(这些方法大多是通过“_method”参数模拟出HEEP方法，一般还是借助了POST用于提交表单)
-#### 
+#### 请求方法
+##### 主要是GET 或者 POST ，还有一些如`DELETE,HEAD,OPTIONS,PUT,TRACE`(这些方法大多是通过“_method”参数模拟出HTTP方法，一般还是借助了POST用于提交表单)
+#### 请求URL，和报文头的`HOST`属性构成完整的请求URL
+#### 剩下的是协议名称和版本号
+### 报文头
+#### 格式是
