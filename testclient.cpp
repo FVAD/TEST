@@ -1,0 +1,41 @@
+#include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
+#include <unistd.h>
+#include <arpa/inet.h>
+#include <sys/socket.h>
+/*
+struct sockaddr_in
+{
+    sa_family_t     sin_family; //地址类型
+    uint16_t        sin_port;   //端口号（16位）
+    struct in_addr  sin_addr;
+    char            sin_zero[8];
+
+};
+*/
+
+
+int main(){
+    //创建套接字
+    int sock = socket(AF_INET, SOCK_STREAM, 0);
+
+    //向服务器（特定的IP和端口）发起请求
+    struct sockaddr_in serv_addr;
+    memset(&serv_addr, 0, sizeof(serv_addr));  //每个字节都用0填充
+    serv_addr.sin_family = AF_INET;  //使用IPv4地址
+    serv_addr.sin_addr.s_addr = inet_addr("127.0.0.1");  //具体的IP地址
+    serv_addr.sin_port = htons(1234);  //端口
+    connect(sock, (struct sockaddr*)&serv_addr, sizeof(serv_addr));
+   
+    //读取服务器传回的数据
+    char buffer[40];
+    read(sock, buffer, sizeof(buffer)-1);
+   
+    printf("Message form server: %s\n", buffer);
+   
+    //关闭套接字
+    close(sock);
+
+    return 0;
+}
